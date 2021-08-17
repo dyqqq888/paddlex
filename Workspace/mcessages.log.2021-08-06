@@ -1,0 +1,61 @@
+2021-08-06 03:52:13,909 app.py[line:988] INFO:RESTful服务启动成功后，您可以在浏览器打开 10.50.7.47:8081 使用WEB版本GUI
+2021-08-06 03:52:13,912 _internal.py[line:225] WARNING: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2021-08-06 03:52:13,912 _internal.py[line:225] INFO: * Running on http://10.50.7.47:8081/ (Press CTRL+C to quit)
+2021-08-06 03:52:58,728 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 03:52:58] "GET / HTTP/1.1" 200 -
+2021-08-06 03:52:58,893 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 03:52:58] "GET /project HTTP/1.1" 200 -
+2021-08-06 03:52:58,902 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 03:52:58] "GET /favicon.ico HTTP/1.1" 200 -
+2021-08-06 03:53:02,169 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 03:53:02] "GET /favicon.ico HTTP/1.1" 200 -
+2021-08-06 03:53:02,545 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 03:53:02] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 03:53:06,857 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 03:53:06] "POST /dataset HTTP/1.1" 200 -
+2021-08-06 03:53:11,091 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 03:53:11] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 03:54:19,106 connectionpool.py[line:781] WARNING:Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f5111f8f410>: Failed to establish a new connection: [Errno 110] Connection timed out')': /datasets?location=
+2021-08-06 03:54:23,453 app.py[line:988] INFO:RESTful服务启动成功后，您可以在浏览器打开 10.50.7.47:8081 使用WEB版本GUI
+2021-08-06 03:54:23,455 _internal.py[line:225] WARNING: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2021-08-06 03:54:23,455 _internal.py[line:225] INFO: * Running on http://10.50.7.47:8081/ (Press CTRL+C to quit)
+2021-08-06 04:46:43,842 app.py[line:988] INFO:RESTful服务启动成功后，您可以在浏览器打开 10.50.7.47:8081 使用WEB版本GUI
+2021-08-06 04:46:43,845 _internal.py[line:225] WARNING: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2021-08-06 04:46:43,845 _internal.py[line:225] INFO: * Running on http://10.50.7.47:8081/ (Press CTRL+C to quit)
+2021-08-06 04:46:49,789 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:46:49] "GET / HTTP/1.1" 200 -
+2021-08-06 04:46:49,939 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:46:49] "GET /project HTTP/1.1" 200 -
+2021-08-06 04:46:49,942 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:46:49] "GET /favicon.ico HTTP/1.1" 200 -
+2021-08-06 04:46:51,395 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:46:51] "GET /favicon.ico HTTP/1.1" 200 -
+2021-08-06 04:46:56,043 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:46:56] "POST /dataset HTTP/1.1" 200 -
+2021-08-06 04:46:57,502 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:46:57] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:47:43,588 app.py[line:988] INFO:RESTful服务启动成功后，您可以在浏览器打开 10.50.7.47:8081 使用WEB版本GUI
+2021-08-06 04:47:43,592 _internal.py[line:225] WARNING: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2021-08-06 04:47:43,592 _internal.py[line:225] INFO: * Running on http://10.50.7.47:8081/ (Press CTRL+C to quit)
+2021-08-06 04:49:40,657 app.py[line:988] INFO:RESTful服务启动成功后，您可以在浏览器打开 10.50.7.47:8081 使用WEB版本GUI
+2021-08-06 04:49:40,665 _internal.py[line:225] WARNING: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2021-08-06 04:49:40,666 _internal.py[line:225] INFO: * Running on http://10.50.7.47:8081/ (Press CTRL+C to quit)
+2021-08-06 04:50:04,180 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:50:04] "POST /dataset HTTP/1.1" 200 -
+2021-08-06 04:50:10,886 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:50:10] "PUT /dataset HTTP/1.1" 200 -
+2021-08-06 04:50:21,321 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:50:21] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:50:22,212 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:50:22] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:02,591 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:02] "PUT /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:11,506 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:11] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:14,764 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:14] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:15,507 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:15] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:15,700 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:15] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:17,435 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:17] "GET / HTTP/1.1" 200 -
+2021-08-06 04:53:17,507 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:17] "GET /favicon.ico HTTP/1.1" 200 -
+2021-08-06 04:53:17,520 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:17] "GET /project HTTP/1.1" 200 -
+2021-08-06 04:53:18,599 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:18] "GET /project HTTP/1.1" 200 -
+2021-08-06 04:53:25,334 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:25] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:30,295 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:30] "GET /dataset/details?did=D0055 HTTP/1.1" 200 -
+2021-08-06 04:53:30,366 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:30] "GET /file?path=Workspace/datasets/D0055/Workspace/datasets/D0055/6.jpg HTTP/1.1" 200 -
+2021-08-06 04:53:30,413 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:30] "GET /file?path=Workspace/datasets/D0055/Workspace/datasets/D0055/5.jpg HTTP/1.1" 200 -
+2021-08-06 04:53:35,960 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:35] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:36,392 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:36] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:36,592 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:36] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:55,807 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:55] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:56,009 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:56] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:56,208 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:56] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:53:56,417 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:53:56] "GET /dataset HTTP/1.1" 200 -
+2021-08-06 04:54:00,756 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:54:00] "GET /dataset/details?did=D0056 HTTP/1.1" 200 -
+2021-08-06 04:54:00,784 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:54:00] "GET /file?path=Workspace/datasets/D0056/Workspace/datasets/D0056/6.jpg HTTP/1.1" 200 -
+2021-08-06 04:54:00,862 _internal.py[line:225] INFO:10.50.7.34 - - [06/Aug/2021 04:54:00] "GET /file?path=Workspace/datasets/D0056/Workspace/datasets/D0056/5.jpg HTTP/1.1" 200 -

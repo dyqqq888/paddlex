@@ -1,0 +1,55 @@
+{
+  "dataset_info":
+  {
+    "name": "昆虫数据",
+    "desc": "示例数据：用于对昆虫进行检测",
+    "dataset_type": "detection"
+  },
+  "project_info":
+  {
+    "name": "昆虫项目",
+    "desc": "示例项目：对昆虫图片进行检测",
+    "project_type": "detection"
+  },
+  "train_params":
+  {
+    "cuda_visible_devices": "",
+    "batch_size": 2,
+    "save_interval_epochs": 1,
+    "pretrain_weights": "IMAGENET",
+    "model": "FasterRCNN",
+    "num_epochs": 12,
+    "learning_rate": 0.0025,
+    "lr_decay_epochs": [8, 11],
+    "train_num": 0,
+    "image_shape": [800, 1333],
+    "image_mean": [0.485, 0.456, 0.406],
+    "image_std": [0.229, 0.224, 0.225],
+    "horizontal_flip_prob": 0.5,
+    "brightness_range": 0.5,
+    "brightness_prob": 0.0,
+    "contrast_range": 0.5,
+    "contrast_prob": 0.0,
+    "saturation_range": 0.5,
+    "saturation_prob": 0.0,
+    "hue_range": 18,
+    "hue_prob": 0.0,
+    "horizontal_flip": true,
+    "brightness": false,
+    "contrast": false,
+    "saturation": false,
+    "hue": false,
+    "warmup_steps": 500,
+    "warmup_start_lr": 0.00083333,
+    "use_mixup": true,
+    "mixup_alpha": 1.5,
+    "mixup_beta": 1.5,
+    "expand_prob": 0.5,
+    "expand_image": true,
+    "crop_image": true,
+    "backbone": "ResNet50",
+    "with_fpn": true,
+    "random_shape": true,
+    "random_shape_sizes": [320, 352, 384, 416, 448, 480, 512, 544, 576, 608]
+  }
+}
