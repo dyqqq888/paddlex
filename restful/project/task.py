@@ -551,40 +551,50 @@ def get_evaluate_result(data, workspace):
     tid = data['tid']
     assert tid in workspace.tasks, "任务ID'{}'不存在".format(tid)
     task_path = workspace.tasks[tid].path
-    status, message = get_evaluate_status(task_path)
-    if status == TaskStatus.XEVALUATED:
-        result_file = osp.join(task_path, 'eval_res.pkl')
-        if os.path.exists(result_file):
-            result = pickle.load(open(result_file, "rb"))
-            return {
-                'status': 1,
-                'evaluate_status': status,
-                'message': "{}评估完成".format(tid),
-                'path': result_file,
-                'result': result
-            }
-        else:
+    
+    
+    n_tries = 30
+    n_try = 0
+    wait_sec = 5
+    while n_try<n_tries:
+        status, message = get_evaluate_status(task_path)
+        if status == TaskStatus.XEVALUATED:
+            result_file = osp.join(task_path, 'eval_res.pkl')
+            if os.path.exists(result_file):
+                result = pickle.load(open(result_file, "rb"))
+                return {
+                    'status': 1,
+                    'evaluate_status': status,
+                    'message': "{}Evaluation completed".format(tid),
+                    'path': result_file,
+                    'result': result
+                }
+            else:
+                return {
+                    'status': -1,
+                    'evaluate_status': status,
+                    'message': "The evaluation result is lost, so it is recommended to re evaluate!",
+                    'result': None
+                }
+        elif status == TaskStatus.XEVALUATEFAIL:
             return {
                 'status': -1,
                 'evaluate_status': status,
-                'message': "评估结果丢失，建议重新评估!",
+                'message': "The evaluation result is lost, so it is recommended to re evaluate!",
                 'result': None
             }
-    if status == TaskStatus.XEVALUATEFAIL:
-        return {
-            'status': -1,
-            'evaluate_status': status,
-            'message': "评估失败，请重新评估!",
-            'result': None
-        }
-    return {
-        'status': 1,
-        'evaluate_status': status,
-        'message': "{}正在评估中，请稍后!".format(tid),
-        'result': None
-    }
-
-
+        else:
+            time.sleep(wait_sec)
+            n_try+=1
+            continue
+        
+            #return {
+                #'status': 1,
+                #'evaluate_status': status,
+                #'message': "{}Evaluation in progress, please wait!".format(tid),
+                #'result': None
+            #}
+        
 def import_evaluate_excel(data, result, workspace):
     excel_ret = dict()
     workbook = xlwt.Workbook()

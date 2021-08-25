@@ -573,10 +573,14 @@ def task_evaluate():
         Return:
             status
     '''
-    data = request.get_json()
-    if data is None:
-        data = request.args
+    print('haha')
+    tid=request.args['tid']
+    #data = request.get_json()
+    #if data is None:
+        #data = request.args
     if request.method == 'GET':
+        re={}
+        data={'tid': tid}
         from .project.task import get_evaluate_result
         ret = get_evaluate_result(data, SD.workspace)
         if ret['evaluate_status'] == TaskStatus.XEVALUATED and ret[
@@ -587,10 +591,20 @@ def task_evaluate():
             ret['result'] = CustomEncoder().encode(ret['result'])
             ret['result'] = json.loads(ret['result'])
         ret['evaluate_status'] = ret['evaluate_status'].value
-        return ret
+        result_prap=ret['result']['PRAP']
+        result_map=ret['result']['mAP']
+        #for prap in result_prap:
+            #prap_Percent='%.2f%%' % (result_prap[prap]['AP'] * 100)
+            #prap_Percent=result_prap[prap]
+            #re[prap]=prap_Percent
+        final={'result':result_prap,'averageAccuracy':result_map}
+        #re['averageAccuracy']=result_map
+        return final
     if request.method == 'POST':
         from .project.task import evaluate_model
-        ret = evaluate_model(data, SD.workspace, SD.monitored_processes)
+        #tid=request.args['tid']
+        data={'tid': tid, 'epoch': 1, 'topk': 5, 'score_thresh': 0.3, 'overlap_thresh': 0.5}
+        ret=evaluate_model(data, SD.workspace, SD.monitored_processes)
         return ret
 
 
@@ -729,7 +743,7 @@ def task_export():
             return ret
     if request.method == 'PUT':
         from .project.task import stop_export_task
-        stop_export_task(data, SD.workspace)
+        ret=stop_export_task(data, SD.workspace)
         return ret
 
 
@@ -890,6 +904,7 @@ def model():
     data = request.get_json()
     if data is None:
         data = request.args
+    
     if request.method == 'GET':
         if 'type' in data:
             if data['type'] == 'pretrained':

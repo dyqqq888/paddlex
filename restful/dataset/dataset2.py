@@ -15,7 +15,17 @@ import json
 import base64
 import cv2
 from paddlex_restful.restful import workspace_pb2 as w
-
+import requests
+from ..utils import ShareData
+SD = ShareData()
+def init(dirname, logger):
+    #初始化工作空间
+    from ..workspace import init_workspace
+    from ..system import get_system_info
+    SD.workspace = w.Workspace(path=dirname)
+    init_workspace(SD.workspace, dirname, logger)
+    SD.workspace_dir = dirname
+    get_system_info(SD.machine_info)
 
 def get_dataset_status(data, workspace):
     """获取数据集当前状态
@@ -61,6 +71,7 @@ def create_dataset(data, workspace,monitored_processes,load_demo_proc_dict):
     """
     1、创建dataset  create_dataset
     """
+    modelName=data['modelName']
     create_time = time.time()
     time_array = time.localtime(create_time)   #格式化为本地时间
     create_time = time.strftime("%Y-%m-%d %H:%M:%S", time_array)  #
@@ -187,13 +198,14 @@ def create_dataset(data, workspace,monitored_processes,load_demo_proc_dict):
     if not osp.exists(path):
         os.makedirs(path)
     set_folder_status(path, TaskStatus.XINIT)
+
     data['task_type'] = 'detection'
     #data['task_type'] = workspace.projects[pid].type
     data['dataset_path'] = workspace.datasets[did].path
     data['pretrain_weights_download_save_dir'] = osp.join(workspace.path,
                                                           'pretrain')
     #参数
-    data['train']='{"cuda_visible_devices": "0", "batch_size": 1, "save_interval_epochs": 1, "pretrain_weights": "COCO", "model": "FasterRCNN", "num_epochs": 12, "learning_rate": 0.00125, "lr_decay_epochs": [8, 11], "train_num": 21, "resume_checkpoint": null, "sensitivities_path": null, "eval_metric_loss": null, "image_shape": [800, 1333], "image_mean": [0.485, 0.456, 0.406], "image_std": [0.229, 0.224, 0.225], "horizontal_flip_prob": 0.5, "brightness_range": 0.5, "brightness_prob": 0.0, "contrast_range": 0.5, "contrast_prob": 0.0, "saturation_range": 0.5, "saturation_prob": 0.0, "hue_range": 18.0, "hue_prob": 0.0, "horizontal_flip": true, "brightness": true, "contrast": true, "saturation": true, "hue": true, "warmup_steps": 50, "warmup_start_lr": 0.00083333, "use_mixup": true, "mixup_alpha": 1.5, "mixup_beta": 1.5, "expand_prob": 0.5, "expand_image": true, "crop_image": true, "backbone": "HRNet_W18", "with_fpn": true, "random_shape": true, "random_shape_sizes": [320, 352, 384, 416, 448, 480, 512, 544, 576, 608]}'
+    data['train']='{"cuda_visible_devices": "0", "batch_size": 1, "save_interval_epochs": 1, "pretrain_weights": "COCO", "model": "FasterRCNN", "num_epochs": 1, "learning_rate": 0.00125, "lr_decay_epochs": [8, 11], "train_num": 21, "resume_checkpoint": null, "sensitivities_path": null, "eval_metric_loss": null, "image_shape": [800, 1333], "image_mean": [0.485, 0.456, 0.406], "image_std": [0.229, 0.224, 0.225], "horizontal_flip_prob": 0.5, "brightness_range": 0.5, "brightness_prob": 0.0, "contrast_range": 0.5, "contrast_prob": 0.0, "saturation_range": 0.5, "saturation_prob": 0.0, "hue_range": 18.0, "hue_prob": 0.0, "horizontal_flip": true, "brightness": true, "contrast": true, "saturation": true, "hue": true, "warmup_steps": 50, "warmup_start_lr": 0.00083333, "use_mixup": true, "mixup_alpha": 1.5, "mixup_beta": 1.5, "expand_prob": 0.5, "expand_image": true, "crop_image": true, "backbone": "HRNet_W18", "with_fpn": true, "random_shape": true, "random_shape_sizes": [320, 352, 384, 416, 448, 480, 512, 544, 576, 608]}'
     params_json = json.loads(data['train'])
         #if (data['task_type'] == 'classification'):
             #params_init = ClsParams()
@@ -262,7 +274,71 @@ def create_dataset(data, workspace,monitored_processes,load_demo_proc_dict):
     
     p = train_model(path)
     monitored_processes.put(p.pid)
+    n_tries_t = 30
+    n_try_t = 0
+    wait_sec_t = 60
+    train_path =osp.join(path,'XTRAINDONE')   
+    while n_try_t<n_tries_t:
 
-    return {'status': 1}
+        if osp.exists(train_path):
+            """
+            评估
+            """
+            data={'tid': tid}
+            url="http://127.0.0.1:8066/project/task/evaluate"
+            r=requests.post(url,params= data)
+            print(r)
+            if r.status_code==200:
+                
+                ret=requests.get(url,params= data)
+                if ret.status_code==200:
+                    res = json.loads(ret.text)
+            break       
+        else:
+            time.sleep(wait_sec_t)
+            n_try_t+=1
+            continue
+        
 
-   
+    """导出部署模型
+
+    Args:
+        data为dict，key包括
+        'tid'任务id, 'save_dir'导出模型保存路径
+    """ 
+    from ..project.operate import export_noquant_model, export_quant_model
+    #tid = data['tid']
+    #save_dir = data['save_dir']
+    save_dir=osp.join('Workspace/projects',pid,tid,'export_model')
+    #epoch = data['epoch'] if 'epoch' in data else None
+    epoch= None
+    #quant = data['quant'] if 'quant' in data else False
+    quant = False
+    assert tid in workspace.tasks, "任务ID'{}'不存在".format(tid)
+    path = workspace.tasks[tid].path
+    if quant:
+        p = export_quant_model(path, save_dir, epoch)
+    else:
+        p = export_noquant_model(path, save_dir, epoch)
+    monitored_processes.put(p.pid)
+    n_tries_m = 10
+    n_try_m = 0
+    wait_sec_m = 5 
+    while n_try_m<n_tries_m:
+        from ..project.operate import get_export_status
+        task_path = workspace.tasks[tid].path
+        status, message = get_export_status(task_path)
+        if status == TaskStatus.XEXPORTED:
+            #'name': tid+'_export_model'                                              
+            data={'pid': pid, 'tid': tid,'name': modelName, 'type': 'exported', 'source_path': '', 'path': save_dir, 'exported_type': 0, 'eval_results': {}}
+            url="http://127.0.0.1:8066/model"
+            r=requests.post(url,params= data)
+            rr=json.loads(r.text)
+            return {'status': 1, 'emid': rr['emid'],'createdDateTime':rr['createdDateTime'],'modelName':rr['modelName'],'averageAccuracy':res['averageAccuracy'],'result':res['result']}
+        else:
+            time.sleep(wait_sec_m)
+            n_try_m+=1
+            continue
+       
+
+    

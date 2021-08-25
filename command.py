@@ -31,7 +31,7 @@ def arg_parser():
         "--port",
         "--pt",
         type=_text_type,
-        default='8078',
+        default='8066',
         help="set the port of restful server")
     parser.add_argument(
         "--workspace_dir",

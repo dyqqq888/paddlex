@@ -663,7 +663,7 @@ def get_evaluate_status(task_path):
                 is_dead = True
         if is_dead:
             status = TaskStatus.XEVALUATEFAIL
-            message = "评估过程出现异常，请尝试重新评估！"
+            message = "An exception occurred in the evaluation process. Please try to re evaluate！"
             set_folder_status(evaluate_status_path, status, message)
     if status not in [
             TaskStatus.XEVALUATING, TaskStatus.XEVALUATED,

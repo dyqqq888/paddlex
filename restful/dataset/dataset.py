@@ -20,7 +20,7 @@ from threading import Thread
 import random
 from paddlex_restful.restful.dataset.utils import copy_directory, get_label_count
 import traceback
-import shutil 
+import shutil
 import psutil
 import pickle
 import os

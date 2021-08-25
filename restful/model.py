@@ -215,10 +215,10 @@ def create_exported_model(data, workspace):
         tid=tid,
         create_time=create_time,
         path=path,
-        exported_type=exported_type)
+        exported_type=int(exported_type))
 
     workspace.exported_models[emid].CopyFrom(em)
-    return {'status': 1, 'emid': emid}
+    return {'status': 1, 'emid': emid,'createdDateTime':create_time,'modelName':name}
 
 
 def list_exported_models(workspace):
